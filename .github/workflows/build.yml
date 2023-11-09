@@ -15,15 +15,17 @@ jobs:
             os: windows-latest,
             deps: "vcpkg install liblo --triplet x64-windows",
             config: "cmake -DCMAKE_TOOLCHAIN_FILE=C:/vcpkg/scripts/buildsystems/vcpkg.cmake -DWERROR=1 .",
+            debugprint: "Get-Content C:/vcpkg/packages/liblo_x64-windows/lib/pkgconfig/liblo.pc",
             build: "cmake --build .",
             test: "ctest --output-on-failure"
           }
           - {
             name: "Ubuntu gcc",
-            enabled: 0,
+            enabled: 1,
             os: ubuntu-latest,
             deps: "sudo apt-get install liblo-dev",
             config: "mkdir build && cd build && cmake -DWERROR=1 ..",
+            debugprint: "echo",
             build: "cd build && make",
             test: "cd build && ctest --output-on-failure"
           }
@@ -35,6 +37,9 @@ jobs:
       - name: configure
         if: ${{ matrix.config.enabled == 1 }}
         run: ${{ matrix.config.config }}
+      - name: debugprint
+        if: ${{ matrix.config.enabled == 1 }}
+        run: ${{ matrix.config.debugprint }}
       - name: make
         if: ${{ matrix.config.enabled == 1 }}
         run: ${{ matrix.config.build }}
