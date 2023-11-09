@@ -1,0 +1,43 @@
+---
+name: Build CI
+on: [push]  # yamllint disable-line rule:truthy
+jobs:
+  build:
+    name: ${{ matrix.config.name }}
+    runs-on: ${{ matrix.config.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        config:
+          - {
+            name: "Windows MSVC",
+            enabled: 1,
+            os: windows-latest,
+            deps: "vcpkg install liblo --triplet x64-windows",
+            config: "cmake -DCMAKE_TOOLCHAIN_FILE=C:/vcpkg/scripts/buildsystems/vcpkg.cmake -DWERROR=1 .",
+            build: "cmake --build .",
+            test: "ctest --output-on-failure"
+          }
+          - {
+            name: "Ubuntu gcc",
+            enabled: 0,
+            os: ubuntu-latest,
+            deps: "sudo apt-get install liblo-dev",
+            config: "mkdir build && cd build && cmake -DWERROR=1 ..",
+            build: "cd build && make",
+            test: "cd build && ctest --output-on-failure"
+          }
+    steps:
+      - uses: actions/checkout@v3
+      - name: install_deps
+        if: ${{ matrix.config.enabled == 1 }}
+        run: ${{ matrix.config.deps }}
+      - name: configure
+        if: ${{ matrix.config.enabled == 1 }}
+        run: ${{ matrix.config.config }}
+      - name: make
+        if: ${{ matrix.config.enabled == 1 }}
+        run: ${{ matrix.config.build }}
+      - name: make test
+        if: ${{ matrix.config.enabled == 1 }}
+        run: ${{ matrix.config.test }}
