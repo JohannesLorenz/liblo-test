@@ -1,6 +1,10 @@
 cmake_minimum_required(VERSION 3.5)
 project(liblo-test)
 
+if(MSVC)
+  SET(CMAKE_LIBRARY_PATH_FLAG "-LIBPATH:")
+endif()
+
 find_package(PkgConfig)
 if(PKG_CONFIG_FOUND)
     pkg_check_modules(LIBLO liblo>=0.28)
