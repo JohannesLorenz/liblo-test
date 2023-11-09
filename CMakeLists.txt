@@ -7,7 +7,11 @@ endif()
 
 find_package(PkgConfig)
 if(PKG_CONFIG_FOUND)
-    pkg_check_modules(LIBLO liblo>=0.28)
+    if(MSVC)
+	    x_vcpkg_pkgconfig_get_modules(PREFIX LIBLO MODULES LIBLO LIBRARIES CFLAGS)
+    else()
+	    pkg_check_modules(LIBLO liblo>=0.28)
+    endif()
 endif()
 
 
