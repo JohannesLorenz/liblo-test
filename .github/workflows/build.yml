@@ -13,9 +13,9 @@ jobs:
             name: "Windows MSVC",
             enabled: 1,
             os: windows-latest,
-            deps: "vcpkg install liblo --triplet x64-windows --host-triplet x64-windows",
+            deps: "vcpkg install liblo --triplet x86-windows --host-triplet x86-windows",
             config: "cmake -DCMAKE_TOOLCHAIN_FILE=C:/vcpkg/scripts/buildsystems/vcpkg.cmake .",
-            debugprint: "Get-Content C:/vcpkg/packages/liblo_x64-windows/lib/pkgconfig/liblo.pc",
+            debugprint: "Get-Content C:/vcpkg/packages/liblo_x86-windows/lib/pkgconfig/liblo.pc",
             build: "cmake --build .",
           }
           - {
