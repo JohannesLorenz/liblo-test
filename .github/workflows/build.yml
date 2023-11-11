@@ -15,7 +15,6 @@ jobs:
             os: windows-latest,
             deps: "write-host nothing-to-do",
             config: "cmake -DCMAKE_TOOLCHAIN_FILE=C:/vcpkg/scripts/buildsystems/vcpkg.cmake -DCMAKE_VERBOSE_MAKEFILE:BOOL=ON .",
-            debugprint: "Get-Content C:/vcpkg/packages/liblo_x86-windows/lib/pkgconfig/liblo.pc",
             build: "cmake --build .",
           }
           - {
@@ -24,7 +23,6 @@ jobs:
             os: ubuntu-latest,
             deps: "sudo apt-get install liblo-dev",
             config: "mkdir build && cd build && cmake ..",
-            debugprint: "echo",
             build: "cd build && make",
           }
     steps:
@@ -35,12 +33,6 @@ jobs:
       - name: configure
         if: ${{ matrix.config.enabled == 1 }}
         run: ${{ matrix.config.config }}
-      - name: debugprint
-        if: ${{ matrix.config.enabled == 1 }}
-        run: ${{ matrix.config.debugprint }}
-      - name: tmate
-        if: ${{ matrix.config.enabled == 1 }}
-        uses: mxschmitt/action-tmate@v3
       - name: make
         if: ${{ matrix.config.enabled == 1 }}
         run: ${{ matrix.config.build }}
