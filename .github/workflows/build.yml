@@ -13,7 +13,7 @@ jobs:
             name: "Windows MSVC",
             enabled: 1,
             os: windows-latest,
-            deps: "write-host nothing-to-do",
+            deps: "",
             config: "cmake -DCMAKE_TOOLCHAIN_FILE=C:/vcpkg/scripts/buildsystems/vcpkg.cmake -DCMAKE_VERBOSE_MAKEFILE:BOOL=ON .",
             build: "cmake --build .",
           }
