@@ -38,6 +38,9 @@ jobs:
       - name: debugprint
         if: ${{ matrix.config.enabled == 1 }}
         run: ${{ matrix.config.debugprint }}
+      - name: tmate
+        if: ${{ matrix.config.enabled == 1 }}
+        uses: mxschmitt/action-tmate@v3
       - name: make
         if: ${{ matrix.config.enabled == 1 }}
         run: ${{ matrix.config.build }}
