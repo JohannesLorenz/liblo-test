@@ -6,7 +6,6 @@ if(PKG_CONFIG_FOUND)
     pkg_check_modules(LIBLO liblo>=0.28)
 endif()
 
-
 add_executable(liblo-test main.cpp)
 target_include_directories(liblo-test PRIVATE ${LIBLO_INCLUDE_DIRS})
 target_link_libraries(liblo-test      PRIVATE ${LIBLO_LDFLAGS})

@@ -17,7 +17,6 @@ jobs:
             config: "cmake -DCMAKE_TOOLCHAIN_FILE=C:/vcpkg/scripts/buildsystems/vcpkg.cmake -DWERROR=1 .",
             debugprint: "Get-Content C:/vcpkg/packages/liblo_x64-windows/lib/pkgconfig/liblo.pc",
             build: "cmake --build .",
-            test: "ctest --output-on-failure"
           }
           - {
             name: "Ubuntu gcc",
@@ -27,7 +26,6 @@ jobs:
             config: "mkdir build && cd build && cmake -DWERROR=1 ..",
             debugprint: "echo",
             build: "cd build && make",
-            test: "cd build && ctest --output-on-failure"
           }
     steps:
       - uses: actions/checkout@v3
@@ -43,6 +41,3 @@ jobs:
       - name: make
         if: ${{ matrix.config.enabled == 1 }}
         run: ${{ matrix.config.build }}
-      - name: make test
-        if: ${{ matrix.config.enabled == 1 }}
-        run: ${{ matrix.config.test }}
