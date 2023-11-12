@@ -5,7 +5,7 @@ project(liblo-test)
 # if(PKG_CONFIG_FOUND)
 #     pkg_check_modules(LIBLO liblo>=0.28)
 # endif()
-find_package(liblo >=0.28)
+find_package(liblo)
 message(STATUS ${LIBLO_VERSION})
 
 add_executable(liblo-test main.cpp)
