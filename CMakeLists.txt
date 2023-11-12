@@ -10,5 +10,5 @@ message(STATUS ${LIBLO_VERSION})
 
 add_executable(liblo-test main.cpp)
 target_include_directories(liblo-test PRIVATE ${LIBLO_INCLUDE_DIRS})
-target_link_libraries(liblo-test      PRIVATE ${LIBLO_LDFLAGS})
+target_link_libraries(liblo-test      PRIVATE ${LIBLO_LIBRARIES})
 
