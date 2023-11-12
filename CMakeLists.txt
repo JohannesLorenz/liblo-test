@@ -5,7 +5,7 @@ project(liblo-test)
 # if(PKG_CONFIG_FOUND)
 #     pkg_check_modules(LIBLO liblo>=0.28)
 # endif()
-find_package(liblo REQUIRED)
+find_package(liblo 0.28)
 
 add_executable(liblo-test main.cpp)
 target_include_directories(liblo-test PRIVATE ${LIBLO_INCLUDE_DIRS})
